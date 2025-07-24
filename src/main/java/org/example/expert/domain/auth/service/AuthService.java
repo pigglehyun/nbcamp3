@@ -1,6 +1,7 @@
 package org.example.expert.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.expert.config.JwtUtil;
 import org.example.expert.config.PasswordEncoder;
 import org.example.expert.domain.auth.dto.request.SigninRequest;
@@ -14,7 +15,7 @@ import org.example.expert.domain.user.enums.UserRole;
 import org.example.expert.domain.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -23,16 +24,18 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
+
     @Transactional
     public SignupResponse signup(SignupRequest signupRequest) {
-
-        String encodedPassword = passwordEncoder.encode(signupRequest.getPassword());
 
         UserRole userRole = UserRole.of(signupRequest.getUserRole());
 
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
             throw new InvalidRequestException("이미 존재하는 이메일입니다.");
         }
+
+        log.info("password encode 진행");
+        String encodedPassword = passwordEncoder.encode(signupRequest.getPassword());
 
         User newUser = new User(
                 signupRequest.getEmail(),
