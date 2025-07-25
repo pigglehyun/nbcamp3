@@ -33,7 +33,7 @@ public class JwtFilter implements Filter {
         String url = httpRequest.getRequestURI();
         String method = httpRequest.getMethod();
 
-        if ((url.startsWith("/auth"))) {
+        if ((url.equals("/users")) || url.startsWith("/todos/")) {
             String bearerJwt = httpRequest.getHeader("Authorization");
 
             if (bearerJwt == null) {
