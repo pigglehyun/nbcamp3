@@ -19,8 +19,12 @@ class PasswordEncoderTest {
         String rawPassword = "testPassword";
         String encodedPassword = passwordEncoder.encode(rawPassword);
 
+        /**
+         * public boolean matches (String rawPassword, String encodedPassword)
+         * -> 첫 번째 인자가 raw, 두 번째 인자가 encoded임.
+         */
         // when
-        boolean matches = passwordEncoder.matches(encodedPassword, rawPassword);
+        boolean matches = passwordEncoder.matches(rawPassword, encodedPassword );
 
         // then
         assertTrue(matches);
