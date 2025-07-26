@@ -85,12 +85,6 @@ public class JwtFilter implements Filter {
         }else {
             chain.doFilter(request, response);
         }
-//        if ((url.startsWith("/auth") || "GET".equalsIgnoreCase(method))) {
-//            chain.doFilter(request, response);
-//            return;
-//        }
-
-
     }
 
     @Override
